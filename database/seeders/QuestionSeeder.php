@@ -13,13 +13,12 @@ class QuestionSeeder extends Seeder
      */
     public function run(): void
     {
-        $questionTypes = ['question', 'optional_question', 'written_question'];
+        $questionTypes = ['question', 'optional_question'];
 
         $questionTypesSeed = [];
         foreach($questionTypes as $questionType){
             $questionTypesSeed[] = ['name' => $questionType, 'created_at' => now(), 'updated_at' => now()];
         }
         QuestionType::insert($questionTypesSeed);
-    
     }
 }

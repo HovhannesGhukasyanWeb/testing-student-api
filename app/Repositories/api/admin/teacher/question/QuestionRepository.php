@@ -63,7 +63,6 @@ class QuestionRepository implements QuestionRepositoryInterface
             DB::commit();
         } catch (Exception $error) {
             DB::rollBack();
-            dd($error->getMessage());
             serverException();
         }
 
