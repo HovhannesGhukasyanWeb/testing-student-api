@@ -57,8 +57,7 @@ class GroupRepository implements GroupRepositoryInterface
     {
         try {
             $group = Group::find($id);
-            $groupUsers = $group->load('groupUsers')->groupUser;
-
+            $groupUsers = $group->groupUsers;
             $userIds = $request->input('user_ids');
 
             foreach ($groupUsers as $groupUser) {
@@ -74,11 +73,11 @@ class GroupRepository implements GroupRepositoryInterface
                 $newGroupUsers[] = ['group_id' => $group->id, 'user_id' => $userId, 'created_at' => now(), 'updated_at' => now()];
             }
             GroupUser::insert($newGroupUsers);
+            return ['message' => 'Updated successfuly', 'data' => $group->load('groupUsers')->groupUser];
         } catch (Exception $error) {
+            dd($error->getMessage());
             serverException();
         }
-
-        return ['message' => 'Updated successfuly', 'data' => $group->load('groupUser')->groupUser];
     }
 
     /**
